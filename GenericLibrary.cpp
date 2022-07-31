@@ -946,6 +946,238 @@ void DoublyCLL<T>::DeleteAtPosition(int ipos)
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+//
+//    Data structure - Queue
+//
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+template<class T>
+struct QueueNode
+{
+    T data;
+    struct QueueNode<T> *next;
+};
+
+template<class T>
+class Queue
+{
+    private:
+        struct QueueNode<T> *Head;
+        int Count;
+
+    public:
+        Queue();
+        void Enqueue(int);
+        void Dequeue();
+        void Display();
+        int CountElements();
+};
+
+template<class T>
+Queue<T>::Queue()
+{
+    Head = NULL;
+    Count = 0;
+}
+
+template<class T>
+void Queue<T>::Enqueue(int no)
+{
+    struct QueueNode<T> *newn = NULL;
+    newn = new QueueNode<T>;
+
+    newn->data = no;
+    newn->next = NULL;
+
+    if(Head == NULL)
+    {
+        Head = newn;
+    }
+    else
+    {
+        struct QueueNode<T> *temp = Head;
+
+        while(temp->next != NULL)
+        {
+            temp =temp->next;
+        }
+        temp->next = newn;
+    }
+    Count++;
+}
+
+template<class T>
+void Queue<T>::Dequeue()
+{
+    int no = 0;
+    struct QueueNode<T> *temp = NULL;
+    temp = Head;
+
+    if(Head == NULL)
+    {
+        return;
+    }
+
+    if(Head->next == NULL)
+    {
+        no = Head->data;
+        delete Head;
+        Head = NULL;        // VIMP
+    }
+    else
+    {
+        no = Head->data;
+        Head = temp->next;
+        delete temp;
+    }
+    cout<<"Removed elements is : "<<no<<endl;
+    Count--;
+}
+
+template<class T>
+void Queue<T>::Display()
+{
+    struct QueueNode<T> *temp = Head;
+
+    if(Head == NULL)
+    {
+        cout<<"Queue is Empty"<<endl;
+        return;
+    }
+    else
+    {
+        cout<<"Elements of Queue are : "<<endl;
+        while(temp != NULL)
+        {
+            cout<<"|"<<temp->data<<"| ->";
+            temp = temp->next;
+        }
+        cout<<endl;
+    }
+}
+
+template<class T>
+int Queue<T>::CountElements()
+{
+    return Count;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+//
+//    Data structure - Stack
+//
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+template<class T>
+struct StackNode
+{
+    T data;
+    struct StackNode<T> *next;
+};
+
+template<class T>
+class Stack
+{
+    private:
+        struct StackNode<T> *Head;
+        int Count;
+
+    public:
+        Stack();
+        void Push(T);
+        void Pop();
+        void Display();
+        int CountElements();
+};
+
+template<class T>
+Stack<T>::Stack()
+{
+    Head = NULL;
+    Count = 0;
+}
+
+template<class T>
+void Stack<T>::Push(T no)
+{
+    struct StackNode<T> *newn = NULL;
+    newn = new StackNode<T>;
+
+    newn->data = no;
+    newn->next = NULL;
+
+    if(Head == NULL)
+    {
+        Head = newn;
+    }
+    else
+    {
+        newn->next = Head;
+        Head = newn;
+    }
+    Count++;
+}
+
+template<class T>
+void Stack<T>::Pop()
+{
+    T no;
+    struct StackNode<T> *temp = NULL;
+    temp = Head;
+
+    if(Head == NULL)
+    {
+        return;
+    }
+
+    if(Head->next == NULL)
+    {
+        no = Head->data;
+        delete Head;
+        Head = NULL;        // VIMP
+    }
+    else
+    {
+        no = Head->data;
+        Head = temp->next;
+        delete temp;
+    }
+    cout<<"Removed elements is : "<<no<<endl;
+    Count--;
+}
+
+template<class T>
+void Stack<T>::Display()
+{
+    struct StackNode<T> *temp = Head;
+
+    if(Head == NULL)
+    {
+        cout<<"Stack is Empty"<<endl;
+        return;
+    }
+    else
+    {
+        cout<<"Elements of Stack are : "<<endl;
+        while(temp != NULL)
+        {
+            cout<<"|"<<temp->data<<"| ->";
+            temp = temp->next;
+        }
+        cout<<endl;
+    }
+}
+
+template<class T>
+int Stack<T>::CountElements()
+{
+    return Count;
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //
